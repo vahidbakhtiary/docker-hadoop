@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+  
+<configuration>
+
+<property>
+    <name>hive.exec.local.scratchdir</name>
+    <value>/tmp/hive/prabha</value>
+    <description>Local scratch space for Hive jobs</description>
+</property>
+ <property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>/tmp/hive_io/${hive.session.id}_resources</value>
+    <description>Temporary local directory for added resources in the remote file system.</description>
+</property>
+<property>
+    <name>hive.querylog.location</name>
+    <value>/tmp/hive/prabha</value>
+    <description>Location of Hive run time structured log file</description>
+</property>
+<property>
+    <name>hive.server2.logging.operation.log.location</name>
+    <value>/tmp/hive/prabha/operation_logs</value>
+    <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
+</property>
+
+
+</configuration>
