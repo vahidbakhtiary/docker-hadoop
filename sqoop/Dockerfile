@@ -110,6 +110,7 @@ RUN wget http://archive.apache.org/dist/sqoop/${SQOOP_VERSION}/sqoop-${SQOOP_VER
 ADD config/sqoop-env.sh ${SQOOP_HOME}/conf
 ADD config/sqljdbc42.jar ${SQOOP_HOME}/lib
 ADD config/commons-lang3-3.4.jar ${SQOOP_HOME}/lib
+ADD config/org.apache.commons.lang-2.6.jar ${SQOOP_HOME}/lib
 
 ADD config/start-derby.sh start-derby.sh 
 #RUN cp $HIVE_HOME/lib/postgresql-jdbc.jar ${SQOOP_HOME}/lib/postgresql-jdbc.jar
