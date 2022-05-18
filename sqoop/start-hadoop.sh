@@ -3,7 +3,7 @@
 
 
 # start hadoop master container
-sudo docker rm -f hadoop-master &> /dev/null
+sudo docker rm -f hadoop-master
 echo "start hadoop-master container..."
 sudo docker run -itd \
                 --net=hadoop-net \
@@ -15,7 +15,7 @@ sudo docker run -itd \
                 -p 10002:10002  \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                vahidbakhtiaryinfo/sqoop:2.0 &> /dev/null
+                sqoop:2.0  
 
 
 # get into hadoop master container
