@@ -1,4 +1,4 @@
- FROM vahidbakhtiaryinfo/hadoop:2.0
+ FROM hadoop-eco:2.0
 
 
 # install packages
