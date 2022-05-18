@@ -113,6 +113,8 @@ ADD config/commons-lang3-3.4.jar ${SQOOP_HOME}/lib
 ADD config/commons-lang-2.6.jar ${SQOOP_HOME}/lib
 ADD config/commons-lang3-3.12.0.jar ${SQOOP_HOME}/lib
 
+RUN cp /usr/local/hive/lib/hive-common-${HIVE_VERSION}.jar /usr/local/sqoop/lib/
+
 ADD config/start-derby.sh start-derby.sh 
 #RUN cp $HIVE_HOME/lib/postgresql-jdbc.jar ${SQOOP_HOME}/lib/postgresql-jdbc.jar
 
