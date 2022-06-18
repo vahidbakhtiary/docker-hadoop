@@ -49,7 +49,7 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
     mv /tmp/workers $HADOOP_HOME/etc/hadoop/workers && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    mv /tmp/run-wordcount.sh ~/run-wordcount.sh \
+    mv /tmp/run-wordcount.sh ~/run-wordcount.sh &&\
     mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
     mkdir $HADOOP_HOME/logs && \  
