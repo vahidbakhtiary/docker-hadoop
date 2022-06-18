@@ -14,7 +14,8 @@ ENV YARN_RESOURCEMANAGER_USER="root"
 ENV YARN_NODEMANAGER_USER="root"
 
 
-# install packages
+# install packages 
+# ssh without key
 RUN \
   apt-get update && apt-get install -y \
   openssh-server \
@@ -22,29 +23,15 @@ RUN \
   ssh \
   rsync \
   vim sudo \
-  openjdk-8-jdk
-
-# ssh without key
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+  openjdk-8-jdk && \
+  ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
   # download and extract hadoop, set JAVA_HOME in hadoop-env.sh, update path
  ENV HADOOP_VERSION 3.3.1
  ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
-#  RUN curl -fSL https://dist.apache.org/repos/dist/release/hadoop/common/KEYS -o /tmp/hadoop_keys && \
-#     gpg --import /tmp/hadoop_keys
-
-# RUN set -x && \
-#     curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz && \
-#     curl -fSL "$HADOOP_URL.asc" -o /tmp/hadoop.tar.gz.asc && \
-#     gpg --verify /tmp/hadoop.tar.gz.asc && \
-#     tar -xvf /tmp/hadoop.tar.gz -C /usr/local/ && \
-#     rm /tmp/hadoop.tar.gz* && \
-#     ln -s /usr/local/hadoop-$HADOOP_VERSION /usr/local/hadoop && \
-#     ln -s /usr/local/hadoop-$HADOOP_VERSION /hadoop 
-
-
+ 
 
 RUN wget $HADOOP_URL && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
@@ -52,6 +39,7 @@ RUN wget $HADOOP_URL && \
     rm hadoop-${HADOOP_VERSION}.tar.gz
 
 COPY config/* /tmp/
+
 
 RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
@@ -61,22 +49,14 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
     mv /tmp/workers $HADOOP_HOME/etc/hadoop/workers && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    mv /tmp/run-wordcount.sh ~/run-wordcount.sh
-
-
-
-RUN mkdir -p ~/hdfs/namenode && \ 
+    mv /tmp/run-wordcount.sh ~/run-wordcount.sh \
+    mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs
-
-  
-  RUN chmod +x ~/start-hadoop.sh && \
+    mkdir $HADOOP_HOME/logs && \  
+    chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
-    chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
-
-
- # format namenode
-RUN /usr/local/hadoop/bin/hdfs namenode -format
+    chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
+    /usr/local/hadoop/bin/hdfs namenode -format
 
 CMD [ "sh", "-c", "service ssh start; bash"]

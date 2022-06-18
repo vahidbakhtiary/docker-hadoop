@@ -1,4 +1,4 @@
- FROM hadoop-eco:2.0
+ FROM hadoop-eco:1.0
 
 
 # install packages
@@ -33,18 +33,6 @@ ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.14
 
  
-
-# RUN curl -fSL https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz -o /tmp/hive.tar.gz \
-#     && mkdir -pv $HIVE_DOWNLOAD_DIR \
-#     && mkdir -pv $TEZ_CONF_DIR \
-#     && mkdir -pv $TEZ_LIB_DIR \
-#     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
-#     && mv -v $HIVE_DOWNLOAD_DIR /opt \
-#     && rm -rfv /tmp/hive.tar.gz \
-#     && rm -rfv $HIVE_HOME/lib/guava-*.jar \
-#     && cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ \
-#     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar 
-
     
 RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz  && \
     tar -xzvf apache-hive-${HIVE_VERSION}-bin.tar.gz && \
