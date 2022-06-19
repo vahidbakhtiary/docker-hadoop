@@ -7,6 +7,6 @@
 	                --net=hadoop-net \
 	                --name hadoop-slave1 \
 	                --hostname hadoop-slave1 \
-	                vahidbakhtiaryinfo/hadoop:2.0 &> /dev/null
+	                 hadoop-eco:1.0 &> /dev/null
 
 					
