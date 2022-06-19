@@ -50,8 +50,8 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/workers $HADOOP_HOME/etc/hadoop/workers && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh &&\
-    mkdir -p ~/hdfs/namenode && \ 
-    mkdir -p ~/hdfs/datanode && \
+    mkdir -p /usr/local/hadoop/hdfs/namenode && \ 
+    mkdir -p /usr/local/hadoop/hdfs/datanode && \
     mkdir $HADOOP_HOME/logs && \  
     chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
@@ -59,4 +59,7 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     /usr/local/hadoop/bin/hdfs namenode -format
 
+
+ 
+VOLUME [ "/usr/local/hadoop/hdfs/datanode", "/usr/local/hadoop/hdfs/datanode" ]
 CMD [ "sh", "-c", "service ssh start; bash"]
