@@ -14,6 +14,7 @@ do
 	                --net=hadoop-net \
 	                --name hadoop-slave1-$i \
 	                --hostname hadoop-slave1-$i \
+					--mount type=bind,source=/usr/local/hadoop/hdfs/datanode,target=/usr/local/hadoop/hdfs/datanode \
 	                 hadoop-eco:1.0 &> /dev/null
 	i=$(( $i + 1 ))
 done 
