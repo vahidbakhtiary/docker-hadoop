@@ -14,7 +14,7 @@ sudo docker run -itd \
                 -p 10002:10002  \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                --mount type=bind,source=/usr/local/hadoop/hdfs/namenode,target=/usr/local/hadoop/hdfs/namenode \
+                -v nameNode:/usr/local/hadoop/hdfs/namenode \
                 hadoop-eco:1.0  
 
 

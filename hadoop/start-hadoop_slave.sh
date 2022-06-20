@@ -10,11 +10,11 @@ while [ $i -lt $N ]
 do
 	sudo docker rm -f hadoop-slave1-$i &> /dev/null
 	echo "start hadoop-slave1-$i container..."
-	sudo docker run -itd \
-	                --net=hadoop-net \
+	sudo docker run -itd  \
+	 				--net=hadoop-net \
 	                --name hadoop-slave1-$i \
 	                --hostname hadoop-slave1-$i \
-					--mount type=bind,source=/usr/local/hadoop/hdfs/datanode,target=/usr/local/hadoop/hdfs/datanode \
+					-v dataNode:/usr/local/hadoop/hdfs/datanode \
 	                 hadoop-eco:1.0 &> /dev/null
 	i=$(( $i + 1 ))
 done 
