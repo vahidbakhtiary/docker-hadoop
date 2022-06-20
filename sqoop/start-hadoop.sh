@@ -15,7 +15,8 @@ sudo docker run -itd \
                 -p 10002:10002  \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                sqoop:1.0  
+                -v nameNode:/usr/local/hadoop/hdfs/namenode \
+                hadoop-eco:1.0  
 
 
 # get into hadoop master container
