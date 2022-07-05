@@ -13,6 +13,7 @@ ENV HDFS_SECONDARYNAMENODE_USER="root"
 ENV YARN_RESOURCEMANAGER_USER="root"
 ENV YARN_NODEMANAGER_USER="root"
 
+RUN echo 'Acquire::http::Proxy "Acquire::http::Proxy "http://admin:P@ssw0rd@172.31.36.10:8080";  'Acquire::https::Proxy "Acquire::http::Proxy "http://admin:P@ssw0rd@172.31.36.10:8080" ' >> 
 
 # install packages 
 # ssh without key
