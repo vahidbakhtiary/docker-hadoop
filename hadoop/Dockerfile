@@ -61,5 +61,5 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
 
 
  
-VOLUME [ "/usr/local/hadoop/hdfs/datanode", "/usr/local/hadoop/hdfs/datanode" ]
+VOLUME [ "/usr/local/hadoop/hdfs/datanode", "/usr/local/hadoop/hdfs/namenode" ]
 CMD [ "sh", "-c", "service ssh start; bash"]
