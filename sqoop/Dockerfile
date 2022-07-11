@@ -3,7 +3,8 @@
 
 # install packages
 RUN \
-  apt-get update && apt-get install -y install cron \
+  apt-get update && apt-get install -y \
+  cron \
   curl
 
 
