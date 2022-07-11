@@ -16,7 +16,7 @@ sudo docker run -itd \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 -v nameNode:/usr/local/hadoop/hdfs/namenode \
-                vahidbakhtiary/hadoop-eco:1.0  
+                vahidbakhtiary/sqoop:1.0  
 
 
 # get into hadoop master container
