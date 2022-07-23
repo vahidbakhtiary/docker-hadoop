@@ -2,7 +2,7 @@
 
 
 # the default node number is 2
-N=${1:-5}
+N=${1:-3}
 
 # start hadoop slave container
 i=1
@@ -15,7 +15,7 @@ do
 	                --name hadoop-slave1-$i \
 	                --hostname hadoop-slave1-$i \
 					-v dataNode$i:/usr/local/hadoop/hdfs/datanode \
-	                 hadoop-eco:1.0 &> /dev/null
+	                 vahidbakhtiary/hadoop-eco:1.0 &> /dev/null
 	i=$(( $i + 1 ))
 done 
 
