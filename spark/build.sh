@@ -9,9 +9,9 @@ HADOOP_VERSION="3"
 #   -f cluster-base/Dockerfile \
 #   -t spark-eco:1.0 .
 
-docker build \
-  -f spark-master/Dockerfile \
-  -t spark-master .
+# docker build \
+#   -f spark-master/Dockerfile \
+#   -t spark-master .
   
 
 # -- Building the Images
@@ -30,8 +30,8 @@ docker build \
 #   -f spark-master/Dockerfile \
 #   -t spark-master .
 
-# docker build \
-#   -f spark-worker/Dockerfile \
-#   -t spark-worker .
+docker build \
+  -f spark-worker/Dockerfile \
+  -t spark-worker .
 
  
