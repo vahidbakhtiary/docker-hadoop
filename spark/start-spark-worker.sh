@@ -1,10 +1,10 @@
-sudo docker rm -f spark-worker-2
+sudo docker rm -f spark-worker-3
 echo "start spark-master container..."
 sudo docker run -itd \
                 --net=hadoop-net \
-                -p 8082:8082 \
-                --name spark-worker-2 \
-                --hostname spark-worker-2 \
+                -p 8083:8080 \
+                --name spark-worker-3 \
+                --hostname spark-worker-3 \
                 spark-worker
 
 
