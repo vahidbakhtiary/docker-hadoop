@@ -22,7 +22,8 @@ VOLUME ${shared_workspace}
 ARG spark_version=3.3.1
 ARG hadoop_version=3
 
-ENV SPARK_HOME /usr/local/spark
+ENV SPARK_HOME = /usr/local/spark
+ENV SPARK_CONF_DIR = $SPARK_HOME/conf/
 ENV SPARK_MASTER_HOST spark-master
 ENV SPARK_MASTER_PORT 7077
 ENV PYSPARK_PYTHON python3
@@ -37,6 +38,7 @@ RUN apt-get update -y && \
     mkdir ${SPARK_HOME}/logs && \
     rm spark.tgz
 
+ADD config/hive-site.xml $SPARK_CONF_DIR
 
 
 # -- Runtime
