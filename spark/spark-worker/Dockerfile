@@ -1,4 +1,4 @@
-FROM spark-eco:1.0
+FROM spark-base
 
 # -- Runtime
 
