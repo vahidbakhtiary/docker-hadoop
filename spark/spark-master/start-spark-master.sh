@@ -10,4 +10,4 @@ sudo docker run -itd \
 
 
 # get into hadoop master container
-# sudo docker exec -it spark-master bash
+ sudo docker exec -it spark-master bash
