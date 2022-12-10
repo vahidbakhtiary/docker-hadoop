@@ -4,6 +4,9 @@ sudo docker run -itd \
                 --net=hadoop-net \
                 -p 8080:8080 \
                 -p 7077:7077 \
+                -p 4040:4040 \
+                -p 4041:4041 \
+                -p 4042:4042 \
                 --name spark-master \
                 --hostname spark-master \
                 spark-master
