@@ -13,6 +13,7 @@ sudo docker run -itd \
                 -p 9083:9083  \
                 -p 10000:10000 \
                 -p 10002:10002  \
+                -p 1527:1527  \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 -v nameNode:/usr/local/hadoop/hdfs/namenode \

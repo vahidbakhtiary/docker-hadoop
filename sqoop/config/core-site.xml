@@ -26,4 +26,15 @@
     <value>*</value>
 </property>
 
+
+<property>
+    <name>hadoop.proxyuser.ubuntu.hosts</name>
+    <value>*</value>
+</property>
+
+<property>
+    <name>hadoop.proxyuser.ubuntu.groups</name>
+    <value>*</value>
+</property>
+
 </configuration>
