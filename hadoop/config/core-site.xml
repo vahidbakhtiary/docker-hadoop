@@ -4,4 +4,55 @@
         <name>fs.defaultFS</name>
         <value>hdfs://hadoop-master:9000/</value>
     </property>
+    
+
+    <property>
+        <name>hadoop.proxyuser.dataflair.groups</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.dataflair.hosts</name>
+        <value>*</value>
+    </property>
+
+<property>
+    <name>hadoop.proxyuser.server.hosts</name>
+    <value>*</value>
+</property>
+
+<property>
+    <name>hadoop.proxyuser.server.groups</name>
+    <value>*</value>
+</property>
+
+
+<property>
+    <name>hadoop.proxyuser.ubuntu.hosts</name>
+    <value>*</value>
+</property>
+
+<property>
+    <name>hadoop.proxyuser.ubuntu.groups</name>
+    <value>*</value>
+</property>
+
+
+<property>
+<name>hadoop.proxyuser.dikshant.groups</name>
+<value>*</value>
+</property>
+<property>
+<name>hadoop.proxyuser.dikshant.hosts</name>
+<value>*</value>
+</property>
+<property>
+<name>hadoop.proxyuser.server.hosts</name>
+<value>*</value>
+</property>
+<property>
+<name>hadoop.proxyuser.server.groups</name>
+<value>*</value>
+</property>
+
 </configuration>
