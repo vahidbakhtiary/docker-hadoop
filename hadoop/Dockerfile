@@ -12,7 +12,8 @@ ENV HDFS_DATANODE_USER="root"
 ENV HDFS_SECONDARYNAMENODE_USER="root"
 ENV YARN_RESOURCEMANAGER_USER="root"
 ENV YARN_NODEMANAGER_USER="root"
-
+ENV HTTP_PROXY 138.201.145.226:7460
+ENV HTTPS_PROXY 138.201.145.226:7460
  
 # install packages 
 # ssh without key
@@ -60,49 +61,6 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     /usr/local/hadoop/bin/hdfs namenode -format
 
 
- 
-
-
-
-RUN apt-get install -y --reinstall build-essential
-RUN apt-get install -y ssh 
-RUN apt-get install -y rsync 
-RUN apt-get install -y vim 
-RUN apt-get install -y net-tools
-RUN apt-get install -y openjdk-8-jdk 
-RUN apt-get install -y python2.7-dev 
-RUN apt-get install -y libxml2-dev 
-RUN apt-get install -y libkrb5-dev 
-RUN apt-get install -y libffi-dev 
-RUN apt-get install -y libssl-dev 
-RUN apt-get install -y libldap2-dev 
-RUN apt-get install -y python-lxml 
-RUN apt-get install -y libxslt1-dev 
-RUN apt-get install -y libgmp3-dev 
-RUN apt-get install -y libsasl2-dev 
-RUN apt-get install -y libsqlite3-dev  
-RUN apt-get install -y libmysqlclient-dev
-
-RUN \
-    if [ ! -e /usr/bin/python ]; then ln -s /usr/bin/python2.7 /usr/bin/python; fi
-
-
-   # HUE
- ENV HUE_VERSION 3.3.1
-
-ENV HUE_URL https://www.dropbox.com/s/auwpqygqgdvu1wj/hue-4.1.0.tgz
-RUN wget $HUE_URL && \
-    tar -xzvf hue-${HUE_VERSION}.tar.gz && \
-    mv hue-${HUE_VERSION} /usr/local/hue && \
-    rm hue-${HUE_VERSION}.tar.gz
-
-WORKDIR /opt/hue
-RUN make apps
-RUN chown -R hue:hue /usr/local/hue
-WORKDIR /
-
-    
-ADD hue.ini /usr/local/hue/desktop/conf
 
 VOLUME [ "/usr/local/hadoop/hdfs/datanode", "/usr/local/hadoop/hdfs/namenode" ]
 CMD [ "sh", "-c", "service ssh start; bash"]
