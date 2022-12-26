@@ -27,7 +27,7 @@ ADD config/tez-site.xml $TEZ_CONF_DIR
 
 # Stage 2 - Build Hive base
 ENV HIVE_HOME=/usr/local/hive
-ENV HIVE_CONF_DIR =$/usr/local/hive/conf/
+ENV HIVE_CONF_DIR =/usr/local/hive/conf
 ENV PATH=$HIVE_HOME/bin:$PATH
 ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
@@ -51,23 +51,23 @@ RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-$
   && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar 
 
 
-RUN curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
+#RUN curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
 #COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
 #COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
 
 
 # Custom configuration goes here
-ADD config/hive-site.xml $HIVE_CONF_DIR
+ADD config/hive-site.xml ${HIVE_HOME}/conf/
 ADD config/core-site.xml $HADOOP_HOME
 ADD sh/*sh $HIVE_HOME/bin/
-ADD config/metastore-site.xml $HIVE_CONF_DIR
-ADD config/metastore-log4j2.properties $HIVE_CONF_DIR
-ADD config/beeline-log4j2.properties $HIVE_CONF_DIR
-ADD config/hive-exec-log4j2.properties $HIVE_CONF_DIR
-ADD config/hive-log4j2.properties $HIVE_CONF_DIR
-ADD config/llap-daemon-log4j2.properties $HIVE_CONF_DIR
-ADD config/llap-cli-log4j2.properties $HIVE_CONF_DIR
+ADD config/metastore-site.xml ${HIVE_HOME}/conf/
+ADD config/metastore-log4j2.properties ${HIVE_HOME}/conf/
+ADD config/beeline-log4j2.properties ${HIVE_HOME}/conf/
+ADD config/hive-exec-log4j2.properties ${HIVE_HOME}/conf/
+ADD config/hive-log4j2.properties ${HIVE_HOME}/conf/
+ADD config/llap-daemon-log4j2.properties ${HIVE_HOME}/conf/
+ADD config/llap-cli-log4j2.properties ${HIVE_HOME}/conf/
 
 #COPY usr/local/hive/lib/*  /usr/local/tez/
 

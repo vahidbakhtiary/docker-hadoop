@@ -15,7 +15,7 @@ do
 	                --name hadoop-slave1-$i \
 	                --hostname hadoop-slave1-$i \
 					-v dataNode$i:/usr/local/hadoop/hdfs/datanode \
-	                 vahidbakhtiary/hadoop-eco:1.0 &> /dev/null
+	                 hadoop-eco:1.0 &> /dev/null
 	i=$(( $i + 1 ))
 done 
 
