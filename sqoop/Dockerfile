@@ -27,11 +27,12 @@ ADD config/tez-site.xml $TEZ_CONF_DIR
 
 # Stage 2 - Build Hive base
 ENV HIVE_HOME=/usr/local/hive
-ENV HIVE_CONF_DIR =/usr/local/hive/conf
+ENV HIVE_CONF_DIR =$HIVE_HOME/conf
 ENV PATH=$HIVE_HOME/bin:$PATH
+ENV PATH $PATH:$HIVE_HOME/bin
 ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.14
+
 
  
     
@@ -51,25 +52,23 @@ RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-$
   && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar 
 
 
-#RUN curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
-
-#COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
-#COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.5.0.jar
+    mv postgresql-42.5.0.jar $SPARK_HOME/lib/
 
 
 # Custom configuration goes here
-ADD config/hive-site.xml ${HIVE_HOME}/conf/
-ADD config/core-site.xml $HADOOP_HOME
-ADD sh/*sh $HIVE_HOME/bin/
-ADD config/metastore-site.xml ${HIVE_HOME}/conf/
-ADD config/metastore-log4j2.properties ${HIVE_HOME}/conf/
-ADD config/beeline-log4j2.properties ${HIVE_HOME}/conf/
-ADD config/hive-exec-log4j2.properties ${HIVE_HOME}/conf/
-ADD config/hive-log4j2.properties ${HIVE_HOME}/conf/
-ADD config/llap-daemon-log4j2.properties ${HIVE_HOME}/conf/
-ADD config/llap-cli-log4j2.properties ${HIVE_HOME}/conf/
+COPY config/hive-site.xml $HIVE_CONF_DIR/
+COPY sh/*sh $HIVE_HOME/bin/
+COPY config/metastore-site.xml $HIVE_CONF_DIR/
+COPY config/metastore-log4j2.properties $HIVE_CONF_DIR/
+COPY config/beeline-log4j2.properties $HIVE_CONF_DIR/
+COPY config/hive-exec-log4j2.properties $HIVE_CONF_DIR/
+COPY config/hive-log4j2.properties $HIVE_CONF_DIR/
+COPY config/llap-daemon-log4j2.properties $HIVE_CONF_DIR/
+COPY config/llap-cli-log4j2.properties $HIVE_CONF_DIR/
+COPY config/beeline.sh /
 
-#COPY usr/local/hive/lib/*  /usr/local/tez/
+ 
 
 RUN mkdir $HIVE_HOME/logs
 
@@ -111,4 +110,4 @@ ADD config/start-derby.sh start-derby.sh
 
 
 
-EXPOSE 9083 10000 10002
+EXPOSE 9083 10000 10001 10002

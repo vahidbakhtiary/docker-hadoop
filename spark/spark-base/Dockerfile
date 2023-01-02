@@ -46,7 +46,7 @@ ENV PYSPARK_PYTHON python3
 
 
  
-ADD config/hive-site.xml ${SPARK_HOME}/conf
+COPY config/hive-site.xml ${SPARK_HOME}/conf/
 
 # -- Runtime
 
