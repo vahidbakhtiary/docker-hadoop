@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo docker pull postgres
+docker pull postgres
 
 # start hive metastore container
 sudo docker rm -f hivemetastore 
@@ -11,6 +11,7 @@ sudo docker run -itd \
                 -e POSTGRES_PASSWORD=123 \
                 --name hivemetastore  \
                 --hostname hivemetastore  \
+                -v nameNode:/usr/local/hadoop/hdfs/namenode \
                 postgres 
            
 

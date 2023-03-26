@@ -1,34 +1,34 @@
-ARG debian_buster_image_tag=8-jre-slim
-FROM openjdk:${debian_buster_image_tag}
+ARG ubuntu_image_tag=20.04
+FROM ubuntu:${ubuntu_image_tag}
 
-# -- Layer: OS + Python 3.7
+# Define build arguments for JDK and Scala versions
+ARG JDK_VERSION=11
+ARG SCALA_VERSION=2.12.15
 
-ARG shared_workspace=/opt/workspace
-
-RUN mkdir -p ${shared_workspace} && \
-    apt-get update -y && \
-    apt-get install -y python3 && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
+# Install required packages
+RUN apt-get update -y && \
+    apt-get install -y curl python3 && \
     rm -rf /var/lib/apt/lists/*
 
-ENV SHARED_WORKSPACE=${shared_workspace}
+# Install OpenJDK and set environment variables
+ENV JAVA_HOME=/usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
+ENV PATH=$PATH:$JAVA_HOME/bin
+RUN apt-get update -y && \
+    apt-get install -y openjdk-${JDK_VERSION}-jdk-headless && \
+    rm -rf /var/lib/apt/lists/*
 
-# -- Runtime
+# Install Scala and set environment variables
+ENV SCALA_HOME=/usr/local/scala
+ENV PATH=$PATH:$SCALA_HOME/bin
+RUN curl -L "https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz" | tar xz && \
+    mv scala-${SCALA_VERSION} ${SCALA_HOME} && \
+    chown -R root:root ${SCALA_HOME}
 
-VOLUME ${shared_workspace}
-CMD ["bash"]
-
-
-
-
-# -- Layer: Apache Spark
+# -- Layer: Spark
 
 ARG spark_version=3.0.0
 ARG hadoop_version=2.7
 ENV SPARK_HOME=/usr/local/spark
-
-
-ENV PATH $PATH:$JAVA_HOME/bin
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
 RUN apt-get update -y && \
@@ -39,13 +39,10 @@ RUN apt-get update -y && \
     mkdir ${SPARK_HOME}/logs && \
     rm spark.tgz
 
-
 ENV SPARK_MASTER_HOST spark-master
 ENV SPARK_MASTER_PORT 7077
 ENV PYSPARK_PYTHON python3
 
-
- 
 COPY config/hive-site.xml ${SPARK_HOME}/conf/
 
 # -- Runtime

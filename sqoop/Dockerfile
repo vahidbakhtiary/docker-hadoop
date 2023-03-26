@@ -52,23 +52,23 @@ RUN wget https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-$
   && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar 
 
 
-RUN wget https://jdbc.postgresql.org/download/postgresql-42.5.0.jar
-    mv postgresql-42.5.0.jar $SPARK_HOME/lib/
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.5.0.jar  && \
+    mv postgresql-42.5.0.jar $HIVE_HOME/lib/
 
 
-# Custom configuration goes here
-COPY config/hive-site.xml $HIVE_CONF_DIR/
+COPY config/* /tmp/
 COPY sh/*sh $HIVE_HOME/bin/
-COPY config/metastore-site.xml $HIVE_CONF_DIR/
-COPY config/metastore-log4j2.properties $HIVE_CONF_DIR/
-COPY config/beeline-log4j2.properties $HIVE_CONF_DIR/
-COPY config/hive-exec-log4j2.properties $HIVE_CONF_DIR/
-COPY config/hive-log4j2.properties $HIVE_CONF_DIR/
-COPY config/llap-daemon-log4j2.properties $HIVE_CONF_DIR/
-COPY config/llap-cli-log4j2.properties $HIVE_CONF_DIR/
-COPY config/beeline.sh /
+# Custom configuration goes here
+RUN mv /tmp/hive-site.xml $HIVE_CONF_DIR && \
+    mv /tmp/metastore-site.xml $HIVE_CONF_DIR && \
+    mv /tmp/metastore-log4j2.properties $HIVE_CONF_DIR && \ 
+    mv /tmp/beeline-log4j2.properties $HIVE_CONF_DIR && \
+    mv /tmp/hive-exec-log4j2.properties $HIVE_CONF_DIR && \
+    mv /tmp/hive-log4j2.properties $HIVE_CONF_DIR && \
+    mv /tmp/llap-cli-log4j2.properties $HIVE_CONF_DIR && \
+    mv /tmp/beeline.sh / 
+     
 
- 
 
 RUN mkdir $HIVE_HOME/logs
 
